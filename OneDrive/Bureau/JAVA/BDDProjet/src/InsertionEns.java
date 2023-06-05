@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,6 +48,9 @@ public class InsertionEns extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	private boolean checkPKvide(){
+	return(matEns.getText().isEmpty());
+	}
 	public InsertionEns() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 450);
@@ -91,17 +96,31 @@ public class InsertionEns extends JFrame {
 		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*try {
+				if(checkPKvide()) {
+					JOptionPane.showMessageDialog(null, "veillez donner le matricule","Erreur", JOptionPane.ERROR_MESSAGE);
+				}else {
+				try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 				connection = DriverManager.getConnection("jdbc:oracle:thin:BDDAdmin/TPAdmin@localhost");
 				stmt=connection.createStatement();
-				int mat=Integer.parseInt(matEns.getText());
-				rs=stmt.executeQuery("INSERT INTO ENSEIGNANT VALUES('"+
-				mat+"','"+nomEns.getText()+"','"+prenomEns.getText()+"'");
+				
+				int mat = Integer.parseInt(matEns.getText());
+				
+	            String requete = "INSERT INTO ETUDIANT VALUES (" + mat + ", '" + nomEns.getText() + "', '" + prenomEns.getText()+ "')";
+	            stmt.executeUpdate(requete);
+
+	            stmt.execute("COMMIT");
+
+	            stmt.close();
+	            connection.close();
+				
 				}catch(Exception e2) {
 					e2.printStackTrace();
-				}*/
+					JOptionPane.showMessageDialog(null, "Contrainte d'integritee violee","Erreur", JOptionPane.ERROR_MESSAGE);
+
+				}
 			}
+				}
 		});
 		btnNewButton.setBackground(new Color(198, 49, 17));
 		btnNewButton.setForeground(new Color(255, 255, 255));

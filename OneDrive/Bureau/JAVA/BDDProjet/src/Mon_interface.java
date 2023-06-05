@@ -96,7 +96,7 @@ public class Mon_interface {
 				String utilisateur=Utilisateur.getText();
 				String mdp=Mdp.getText();
 				 
-				if(utilisateur.toLowerCase().contentEquals("bddadmin")&& mdp.toLowerCase().contentEquals("tpadmin")) {
+				if(utilisateur.toLowerCase().contentEquals("BDDAdmin")&& mdp.contentEquals("TPAdmin")) {
 				
 					//Class.forName("oracle.jdbc.driver.OracleDriver");
 					//connection = DriverManager.getConnection("jdbc:oracle:thin:"+utilisateur+"/"+mdp+"@localhost");
@@ -104,7 +104,7 @@ public class Mon_interface {
 					BDDAdmin A1 =new BDDAdmin();
 					A1.setVisible(true);
 					frame.dispose();
-				}else if(utilisateur.toLowerCase().contentEquals("etudiant")&& mdp.toLowerCase().contentEquals("tpetudiant")){
+				}else if(utilisateur.toLowerCase().contentEquals("Etudiant")&& mdp.contentEquals("TPEtudiant")){
 
 					Class.forName("oracle.jdbc.driver.OracleDriver");
 					connection = DriverManager.getConnection("jdbc:oracle:thin:"+utilisateur+"/"+mdp+"@localhost");
@@ -113,7 +113,7 @@ public class Mon_interface {
 					Etudiant etudiant=new Etudiant();
 					etudiant.setVisible(true);
 					frame.dispose();
-				}else if(utilisateur.toLowerCase().contentEquals("enseignant")&& mdp.toLowerCase().contentEquals("tpenseignant")){
+				}else if(utilisateur.toLowerCase().contentEquals("Enseignant")&& mdp.contentEquals("TPEnseignant")){
 
 					Class.forName("oracle.jdbc.driver.OracleDriver");
 					connection = DriverManager.getConnection("jdbc:oracle:thin:"+utilisateur+"/"+mdp+"@localhost");
@@ -122,6 +122,9 @@ public class Mon_interface {
 					Enseignant enseignant=new Enseignant();
 					enseignant.setVisible(true);
 					frame.dispose();				}
+				else {
+					JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect","Erreur", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}catch(Exception e1) {
 				e1.printStackTrace();

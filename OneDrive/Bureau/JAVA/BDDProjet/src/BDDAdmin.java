@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -80,7 +81,7 @@ public class BDDAdmin extends JFrame {
 		Table.addItem("Etudiant");
 		Table.addItem("Enseignant");
 		Table.addItem("EtudiantUnite");
-		Table.addItem("unite");
+		Table.addItem("Unite");
 		Table.setSelectedItem("selectionnez une table");
 		
 		JLabel lblNewLabel_2 = new JLabel("Table");
@@ -102,6 +103,14 @@ public class BDDAdmin extends JFrame {
 						iens.setVisible(true);
 						iens.setLocationRelativeTo(null);
 				
+					}else if(Table.getSelectedItem().toString().contentEquals("Unite")) {
+						InsertionUnite iu = new InsertionUnite();
+						iu.setVisible(true);
+						BddAdmin.setVisible(false);
+					}else if(Table.getSelectedItem().toString().contentEquals("EtudiantUnite")){
+						InsertionEtuUnite eu= new InsertionEtuUnite();
+						eu.setVisible(true);
+						BddAdmin.setVisible(false);
 					}
 				}
 			}

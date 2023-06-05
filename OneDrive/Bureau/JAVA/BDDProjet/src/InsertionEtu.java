@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -46,6 +47,10 @@ public class InsertionEtu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	private boolean checkPKvide(){
+	return(matricule.getText().isEmpty());
+	}
+	
 	public InsertionEtu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 450);
@@ -98,18 +103,36 @@ public class InsertionEtu extends JFrame {
 		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(checkPKvide()){JOptionPane.showMessageDialog(null, "veillez donner le matricule","Erreur", JOptionPane.ERROR_MESSAGE);
+				}else {
 			try {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 				connection = DriverManager.getConnection("jdbc:oracle:thin:BDDAdmin/TPAdmin@localhost");
 				stmt=connection.createStatement();
-			/*	int mat=Integer.parseInt(matricule.getText());
+				/*int mat=Integer.parseInt(matricule.getText());
 	rs=stmt.executeQuery("INSERT INTO ETUDIANT VALUES("+mat+",'"+nom.getText()
 	+"','"+prenom.getText()+"','"+date.getText()+"','"+adr.getText()+"');");
 				rs=stmt.executeQuery("COMMIT");*/
+				
+			       int mat = Integer.parseInt(matricule.getText());
+		           // String nomValue = nom.getText();
+		            //String prenomValue = prenom.getText();
+		            //String dateValue = date.getText();
+		            //String adrValue = adr.getText();
+
+		            String requete = "INSERT INTO ETUDIANT VALUES (" + mat + ", '" + nom.getText() + "', '" + prenom.getText() + "', '" + date.getText() + "', '" + adr.getText() + "')";
+		            stmt.executeUpdate(requete);
+
+		            stmt.execute("COMMIT");
+
+		            stmt.close();
+		            connection.close();
+				
 			}catch(Exception e1){
 				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Contrainte d'integritee violee","Erreur", JOptionPane.ERROR_MESSAGE);
 			}
-			
+				}
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
